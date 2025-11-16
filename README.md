@@ -2,6 +2,8 @@
 
 This is a simple, lightweight command-line task management tool built with Node.js. It allows you to track tasks you need to do, what you're working on, and what you've completed, all from your terminal.
 
+[Project Repo Link]([url](https://github.com/abhishekpd01/Task-Tracker))
+
 The project is built entirely with native Node.js modules (```fs```, ```path```) and uses a local tasks.json file for persistent storage. No external libraries are required.
 
 ## Features
