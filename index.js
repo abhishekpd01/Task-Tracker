@@ -39,7 +39,7 @@ switch(command) {
 
         if(tasks.length === 0) {
             console.log('No tasks found.');
-            break;
+            process.exit(0);
         }
 
         let filteredTasks = tasks;
@@ -56,17 +56,67 @@ switch(command) {
 
         break;
     case 'update':
-        // Call a function to update a task
-        break;
+        {const taskIdToUpdate = parseInt(args[0]);
+        const newDescription = args[1];
+
+        if(isNaN(taskIdToUpdate) || !newDescription) {
+            console.error('Please provide a valid task ID and new description.');
+            process.exit(1);
+        }
+
+        const tasks = readTasks();
+        const taskIndex = tasks.findIndex(t => t.id === taskIdToUpdate);
+        if(taskIndex === -1) {
+            console.error(`Task with ID ${taskIdToUpdate} not found.`);
+            process.exit(1);
+        }
+        tasks[taskIndex].description = newDescription;
+        
+        writeTasks(tasks);
+        console.log(`Task with ID ${taskIdToUpdate} successfully updated.`);
+
+        break;}
     case 'delete': 
         // Call a function to delete a task
         break;
     case 'done':
-        // Call a function to mark a task as done
-        break;
+        {const taskIdToMarkDone = parseInt(args[0]);
+        if(isNaN(taskIdToMarkDone)) {
+            console.error('Please provide a valid task ID.');
+            process.exit(1);
+        }
+
+        const tasks = readTasks();
+        const taskIndex = tasks.findIndex(t => t.id === taskIdToMarkDone);
+        if(taskIndex === -1) {
+            console.error(`Task with ID ${taskIdToMarkDone} not found.`);
+            process.exit(1);
+        }
+
+        tasks[taskIndex].status = 'done';
+        writeTasks(tasks);
+        console.log(`Task with ID ${taskIdToMarkDone} marked as done.`);
+
+        break;}
     case 'progress':
-        // Call a function to mark a task as in progress
-        break;
+        {const taskIdToMarkDone = parseInt(args[0]);
+        if(isNaN(taskIdToMarkDone)) {
+            console.error('Please provide a valid task ID.');
+            process.exit(1);
+        }
+
+        const tasks = readTasks();
+        const taskIndex = tasks.findIndex(t => t.id === taskIdToMarkDone);
+        if(taskIndex === -1) {
+            console.error(`Task with ID ${taskIdToMarkDone} not found.`);
+            process.exit(1);
+        }
+
+        tasks[taskIndex].status = 'in-progress';
+        writeTasks(tasks);
+        console.log(`Task with ID ${taskIdToMarkDone} marked as in-progress.`);
+
+        break;}
     default:
         console.log('Unknown command. Available commands: add, list, update, delete, done, progress');
 }

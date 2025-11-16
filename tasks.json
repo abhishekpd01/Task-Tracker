@@ -1,12 +1,12 @@
 [
   {
     "id": 1,
-    "description": "Do a leetcode question",
+    "description": "Solve 1 Leetcode question",
     "status": "pending"
   },
   {
     "id": 2,
     "description": "Build a mini project.",
-    "status": "pending"
+    "status": "done"
   }
 ]
