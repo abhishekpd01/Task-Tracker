@@ -77,8 +77,20 @@ switch(command) {
 
         break;}
     case 'delete': 
-        // Call a function to delete a task
-        break;
+        {const taskIdToDelete = parseInt(args[0]);
+        if(isNaN(taskIdToDelete)) {
+            console.error('Please provide a valid task ID.');
+            process.exit(1);
+        }
+        const tasks = readTasks();
+        const updatedTasks = tasks.filter(t => t.id !== taskIdToDelete);
+        if(tasks.length === updatedTasks.length) {
+            console.error(`Task with ID ${taskIdToDelete} not found.`);
+            process.exit(1);
+        }
+        writeTasks(updatedTasks);
+        console.log(`Task with ID ${taskIdToDelete} successfully deleted.`);
+        break;}
     case 'done':
         {const taskIdToMarkDone = parseInt(args[0]);
         if(isNaN(taskIdToMarkDone)) {
